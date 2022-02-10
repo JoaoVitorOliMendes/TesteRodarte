@@ -4,7 +4,6 @@ import { Alunos } from './Models/Alunos';
 import { AlunosService } from './Services/AlunosService';
 import * as XLSX from 'xlsx';
 import { write } from 'xlsx';
-import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +13,9 @@ import { saveAs } from 'file-saver';
 export class AppComponent implements AfterViewInit {
   title = 'TesteRodarteFront';
 
-  displayedColumns: string[] = ['identificacao', 'nome', 'media'];
+  order: string = "idade";
+
+  displayedColumns: string[] = ['nome', 'idade', 'media'];
   dataSource: Alunos[] | null = null;
   
   constructor(
@@ -22,10 +23,28 @@ export class AppComponent implements AfterViewInit {
   ) { }
 
   ngAfterViewInit(): void {
-      this.alunosService.getAll("nome", true).subscribe((res) => {
-        if(res.body) {
-          this.dataSource = res.body
-        }
-      });
+    this.query();
+  }
+
+  filterChange(filter: string): void {
+    this.order = filter;
+    this.query();
+  }
+
+  query(): void {
+    this.alunosService.getAll(this.order, true).subscribe((res) => {
+      if(res.body) {
+        this.dataSource = res.body
+      }
+    });
+  }
+
+  download(): void {
+    let timeSpan = new Date().toISOString();
+    let prefix = "Alunos";
+    let fileName = `${prefix}-${timeSpan}`;
+    let targetTableElm = document.getElementById("table");
+    let wb = XLSX.utils.table_to_book(targetTableElm, <XLSX.Table2SheetOpts>{ sheet: prefix });
+    XLSX.writeFile(wb, `${fileName}.xlsx`);
   }
 }

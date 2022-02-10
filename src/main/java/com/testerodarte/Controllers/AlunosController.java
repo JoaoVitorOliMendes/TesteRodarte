@@ -36,19 +36,19 @@ public class AlunosController {
 	
 	@GetMapping
 	public ResponseEntity searchAll(
-			@RequestParam(name = "orderby", defaultValue = "nome", required = false ) String orderby,
-			@RequestParam(name = "average", defaultValue = "true", required = false ) boolean average
+			@RequestParam(name = "orderby", defaultValue = "nome", required = false ) String orderby
 		) {
 		List<Alunos> listaAlunos;
 		switch(orderby) {
 			case "nome":
 				listaAlunos = alunosRepository.findAllSortedByName(Sort.by(orderby));
 				break;
-			default:
+			case "idade":
 				listaAlunos = alunosRepository.findAllSortedByName(Sort.by(orderby));
 				break;
-		}
-		if(average) {
+			default:
+				listaAlunos = alunosRepository.findAllSortedByName(Sort.by("nome"));
+				break;
 		}
 		return ResponseEntity.ok(listaAlunos);
 	}

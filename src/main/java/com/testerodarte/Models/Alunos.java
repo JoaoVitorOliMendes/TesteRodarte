@@ -24,14 +24,15 @@ public class Alunos {
 	private String nome;
 	private Character sexo;
 	private LocalDate data_nascimento;
+	private BigInteger idade;
 	private BigDecimal nota_1;
 	private BigDecimal nota_2;
 	private BigDecimal nota_3;
 	private BigDecimal media = null;
 
-	public Alunos(BigInteger identificacao, String nome, BigDecimal media) {
-		this.identificacao = identificacao;
+	public Alunos(String nome, BigInteger idade, BigDecimal media) {
 		this.nome = nome;
+		this.idade = idade;
 		this.media = media;
 	}
 }

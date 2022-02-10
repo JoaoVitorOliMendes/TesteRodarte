@@ -14,6 +14,6 @@ import com.testerodarte.Models.Alunos;
 @Repository
 public interface AlunosRepository extends CrudRepository<Alunos, BigInteger> {
 	
-	@Query(value = "select new com.testerodarte.Models.Alunos(a.identificacao, a.nome, ((a.nota_1 + a.nota_2 + a.nota_3) / 3) as media) from Alunos a")
+	@Query(value = "select new com.testerodarte.Models.Alunos(a.nome, a.idade, ((a.nota_1 + a.nota_2 + a.nota_3) / 3) as media) from Alunos a")
 	public List<Alunos> findAllSortedByName(Sort sort);
 }

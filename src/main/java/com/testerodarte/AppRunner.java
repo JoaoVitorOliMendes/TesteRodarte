@@ -52,11 +52,9 @@ public class AppRunner implements CommandLineRunner {
                 
                 Alunos aluno = new Alunos();
                 int index = 0;
-                int rowIndex = 0;
                 
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
-                    
                     switch (index) {
 	                    case 0:
 	                    	aluno.setIdentificacao(BigInteger.valueOf((long) cell.getNumericCellValue()));
@@ -71,12 +69,15 @@ public class AppRunner implements CommandLineRunner {
 	                    	aluno.setData_nascimento(cell.getLocalDateTimeCellValue().toLocalDate());
 	                      break;
 	                    case 4:
-	                    	aluno.setNota_1(BigDecimal.valueOf((long) cell.getNumericCellValue()));
+	                    	aluno.setIdade(BigInteger.valueOf((long) cell.getNumericCellValue()));
 	                      break;
 	                    case 5:
-	                    	aluno.setNota_2(BigDecimal.valueOf((long) cell.getNumericCellValue()));
+	                    	aluno.setNota_1(BigDecimal.valueOf((long) cell.getNumericCellValue()));
 	                      break;
 	                    case 6:
+	                    	aluno.setNota_2(BigDecimal.valueOf((long) cell.getNumericCellValue()));
+	                      break;
+	                    case 7:
 	                    	aluno.setNota_3(BigDecimal.valueOf((long) cell.getNumericCellValue()));
 	                      break;
 	                    default:
